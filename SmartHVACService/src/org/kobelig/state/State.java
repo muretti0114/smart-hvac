@@ -1,4 +1,4 @@
-package org.kobelig.service;
+package org.kobelig.state;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -53,8 +53,18 @@ public class State {
 			System.err.println("Warning: key "+ key + " does not exist. "
 					+ "Adding as a new key.");
 		}
+		addValue(key, value);
+	}
+
+	/**
+	 * Add a new value with a new key in the state
+	 * @param key
+	 * @param value
+	 */
+	public void addValue(String key, String value) {
 		map.put(key, value);
 	}
+
 
 	/**
 	 * Get a value of the key in the state.
@@ -85,6 +95,14 @@ public class State {
 		return str;
 	}
 
-
+	/**
+	 * Merge another state into the current state
+	 * @param s
+	 */
+	public void merge(State s) {
+		for (String key: s.getKeySet()) {
+			addValue(key, s.getValue(key));
+		}
+	}
 
 }

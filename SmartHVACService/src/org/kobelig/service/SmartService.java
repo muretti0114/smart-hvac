@@ -1,5 +1,7 @@
 package org.kobelig.service;
 
+import org.kobelig.state.State;
+
 /**
  * Class for general smart service. Any concrete service should extend it.
  *

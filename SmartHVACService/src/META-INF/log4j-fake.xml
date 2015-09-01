@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<!-- ACDProxyFake用 log4j 設定ファイル 2015-05-22 by masa-n -->
+
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+<!-- FILE: ファイル書き込み用 appender -->
+<appender name="FILE" class="org.apache.log4j.DailyRollingFileAppender">
+  <!--TomcatのログフォルダにCS27-HNS.log という形で保存．毎日ローテーション -->
+  <param name="File" value="logs/ACD/ACDProxyFake.log" />
+
+  <param name="append" value="true" />
+
+  <!-- ログのレイアウト設定 -->
+  <layout class="org.apache.log4j.PatternLayout">
+    <param name="ConversionPattern"
+           value="[%d{yyyy-MM-dd'T'HH:mm:ss.SSS}] %-5p [%t] %C{1}.%M() --- %m%n" />
+  </layout>
+</appender>
+
+
+<!-- STDOUT: 標準出力用 appender -->
+<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender" >
+  <!-- ログのレイアウト設定 -->
+  <layout class="org.apache.log4j.PatternLayout">
+    <param name="ConversionPattern"
+           value="[%d{yyyy-MM-dd'T'HH:mm:ss.SSS}] %-5p [%t] %C{1}.%M() --- %m%n" />
+  </layout>
+</appender>
+
+<!-- JDBC: DBへの書き込み -->
+<appender name="JDBC" class="org.apache.log4j.jdbc.JDBCAppender">
+  <param name="URL" value="jdbc:mysql://133.30.159.229/hnslog?autoReconnect=true" />
+  <param name="user" value="cs27" />
+  <param name="password" value="lifelog" />
+  <param name="driver" value="com.mysql.jdbc.Driver" />
+  <param name="bufferSize" value="1" />
+  <layout class="org.apache.log4j.PatternLayout">
+    <param name="ConversionPattern"
+    value="INSERT INTO appliancelog (date, time, server, priority, thread, category,
+      appliance, method, message) VALUES (
+      '%d{yyyy-MM-dd}', '%d{HH:mm:ss}', 'wsapp.cs.kobe-u.ac.jp', '%p', '%t', '%c',
+      '%C{1}', '%M', '%m');" />
+    </layout>
+</appender>
+
+<!-- (3)categoryの設定 -->
+<category name="jp.kobe_u.cs27.hns">
+  <priority value="info" />
+  <appender-ref ref="FILE" />
+  <appender-ref ref="STDOUT" />
+<!--  <appender-ref ref="JDBC" /> -->
+</category>
+
+
+</log4j:configuration>

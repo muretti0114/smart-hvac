@@ -1,0 +1,25 @@
+<serviceGroup>
+	<service name="D316WindowService" scope="application">
+		<description>
+		Manages three windows in ENSIMAG D316
+		</description>
+		<messageReceivers>
+		<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only" class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver" />
+		<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out" class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+		</messageReceivers>
+		<parameter name="ServiceClass" locked="false">jp.kobe_u.cs27.hns.service.GrenobleWindowService</parameter>
+		  <schema elementFormDefaultQualified="false" attributeFormDefaultQualified="false"/>
+	</service>
+
+	<service name="D316FanService" scope="application">
+		<description>
+		Manages the status of the fan in ENSIMAG D316
+		</description>
+		<messageReceivers>
+		<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only" class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver" />
+		<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out" class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+		</messageReceivers>
+		<parameter name="ServiceClass" locked="false">jp.kobe_u.cs27.hns.service.GrenobleFanService</parameter>
+		  <schema elementFormDefaultQualified="false" attributeFormDefaultQualified="false"/>
+	</service>
+</serviceGroup>
