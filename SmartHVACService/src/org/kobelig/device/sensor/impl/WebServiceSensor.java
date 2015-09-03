@@ -1,4 +1,4 @@
-package org.kobelig.device.sensor;
+package org.kobelig.device.sensor.impl;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -11,6 +11,12 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
+
+/**
+ * A client of SensorBoxService. Configuration is given by sensorbox.property.
+ * @author masa-n
+ *
+ */
 public class WebServiceSensor extends Sensor {
 	protected String url;
 

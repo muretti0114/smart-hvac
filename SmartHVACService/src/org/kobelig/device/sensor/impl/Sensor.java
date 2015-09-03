@@ -1,4 +1,4 @@
-package org.kobelig.device.sensor;
+package org.kobelig.device.sensor.impl;
 
 public abstract class Sensor {
 	protected String id;
