@@ -10,8 +10,7 @@ import java.util.TreeMap;
  *
  */
 public class DeviceStatus {
-	private TreeMap<String,String> state;
-
+	private TreeMap<String,String> state = new TreeMap<String,String>();
 
 	/**
 	 * Create a status.
@@ -25,9 +24,8 @@ public class DeviceStatus {
 	 * @param keys a set of keys
 	 */
 	public DeviceStatus(String[] keys) {
-		state = new TreeMap<String,String>();
 		for (String k: keys) {
-			setValue(k, "undef");
+			addValue(k, "undef");
 		}
 	}
 
@@ -82,12 +80,15 @@ public class DeviceStatus {
 	 */
 	public String toString() {
 		String str;
-		str = "[ ";
+		str = "{ ";
 		//concatenating key-value's
 		for (String k: getKeySet()) {
-			str += k + ":" + getValue(k) + ", ";
+			str += "\"" + k + "\":\"" + getValue(k) + "\", ";
 		}
-		str += "]";
+
+		str = str.substring(0, str.length()-2);
+
+		str += "}";
 
 		return str;
 	}

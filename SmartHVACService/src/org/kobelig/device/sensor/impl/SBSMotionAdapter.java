@@ -8,22 +8,22 @@ import org.kobelig.state.DeviceStatus;
  * @author masa-n
  *
  */
-public class SBSHumanPresenceAdapter implements HumanPresenceSensor {
+public class SBSMotionAdapter implements HumanPresenceSensor {
 	private SensorBox sbox = null;         //Stub of SensorBoxService
 	private String sensorId = null;        //ID of the humidity sensor in the box
 	private String id=null;
 
 	/**
-	 * Construct a presence sensor using a motion sensor of SensorBoxService
+	 * Construct a motion sensor of SensorBoxService
 	 * @param name      Unique name used in the appliation.
 	 * @param url       URL of SensorBoxService
 	 * @param sensorId  ID of the motion sensor used in the sensorbox
 	 */
 
-	public SBSHumanPresenceAdapter(String name, String url, String sensorId) {
-		this.id = name;
+	public SBSMotionAdapter(String url, String sensorId) {
 		sbox = new SensorBox(url);  //Create a stub based on URL
 		this.sensorId = sensorId;
+		this.id = sbox.getInfo(sensorId, "boxId") + "." + sensorId;
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class SBSHumanPresenceAdapter implements HumanPresenceSensor {
 	public DeviceStatus getStatus() {
 		DeviceStatus s = new DeviceStatus();
 		s.addValue("id", id);
-		s.addValue("Motion", Boolean.toString(isHumanPresent()));
+		s.addValue("HumanPresence", Boolean.toString(isHumanPresent()));
 		return s;
 	}
 

@@ -19,11 +19,10 @@ public class SBSTemperatureAdapter implements TemperatureSensor {
 	 * @param url       URL of SensorBoxService
 	 * @param sensorId  ID of the temperature sensor used in the sensorbox
 	 */
-
-	public SBSTemperatureAdapter(String name, String url, String sensorId) {
-		this.id = name;
+	public SBSTemperatureAdapter(String url, String sensorId) {
 		sbox = new SensorBox(url);  //Create a stub based on URL
 		this.sensorId = sensorId;
+		this.id = sbox.getInfo(sensorId, "boxId") + "." + sensorId;
 	}
 
 	@Override
@@ -36,7 +35,7 @@ public class SBSTemperatureAdapter implements TemperatureSensor {
 	public DeviceStatus getStatus() {
 		DeviceStatus s = new DeviceStatus();
 		s.addValue("id", id);
-		s.addValue("Temperature", Double.toString(getTemperature()));
+		s.addValue("temperature", Double.toString(getTemperature()));
 		return s;
 	}
 

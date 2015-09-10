@@ -7,6 +7,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 
@@ -62,6 +63,49 @@ public class SensorBox {
 
 		return value;
 	}
+
+	/**
+	 * Get the attribute information of a sensor
+	 *
+	 * @param id    id of the sensor
+	 * @param attr  name of attribute
+	 * @return attribute
+	 */
+	public String getInfo(String id, String attr) {
+		String info = "";
+		String endpoint = url + "/getInfo?id=" + id;
+
+		// TODO 自動生成されたメソッド・スタブ
+		try {
+			DocumentBuilderFactory factory =
+					DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Node root = builder.parse(endpoint);
+
+			NodeList list = root.getFirstChild().getFirstChild().getChildNodes();
+			for (int i=0; i< list.getLength(); i++) {
+				Node n = list.item(i);
+				if (attr.equals(n.getNodeName())) {
+					info = n.getTextContent();
+				}
+			}
+		} catch (ParserConfigurationException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+
+		return info;
+	}
+
+
+
+
 
 	public String getUrl() {
 		return url;

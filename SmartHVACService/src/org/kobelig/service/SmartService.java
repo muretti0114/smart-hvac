@@ -41,20 +41,27 @@ public abstract class SmartService {
 		//Repeat until explicitly stopped.
 		while (running) {
 			// (1) State Observation
+			System.out.println("(Step 1) Observing State...");
 			State s = observeState();
 
 			// (2) State Interpretation
+			System.out.println("(Step 2) Interpreting State...");
 			Context c = interpreteState(s);
 
 			// If the situation is not acceptable
 			if (!isAcceptable(c)) {
+				System.out.println("(Step 3) Proposing Actions...");
 				// (3) Action Proposal
 				Action [] acts =proposeActions(c);
 
 				//(4) Action Execution
+				System.out.println("(Step 4) Executing Actions...");
 				executeActions(acts);
+			} else {
+				System.out.println("The current state is acceptable. No actions performed.");
 			}
 
+			System.out.println("Waiting " + waitTime + " msec before re-activating Step 1. ");
 			// Sleep for a while
 			Thread.sleep(waitTime);
 		}

@@ -9,7 +9,7 @@ import java.util.TreeMap;
  *
  */
 public class State {
-	private TreeMap <String, DeviceStatus> map;
+	private TreeMap <String, DeviceStatus> map = new TreeMap<String, DeviceStatus>();
 
 	/**
 	 * Obtain a status of a device

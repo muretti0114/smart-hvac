@@ -19,10 +19,10 @@ public class SBSHumidityAdapter implements HumiditySensor {
 	 * @param url       URL of SensorBoxService
 	 * @param sensorId  ID of the humidity sensor used in the sensorbox
 	 */
-	public SBSHumidityAdapter(String name, String url, String sensorId) {
-		this.id = name;
+	public SBSHumidityAdapter(String url, String sensorId) {
 		sbox = new SensorBox(url);  //Create a stub based on URL
 		this.sensorId = sensorId;
+		this.id = sbox.getInfo(sensorId, "boxId") + "." + sensorId;
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class SBSHumidityAdapter implements HumiditySensor {
 	public DeviceStatus getStatus() {
 		DeviceStatus s = new DeviceStatus();
 		s.addValue("id", id);
-		s.addValue("Humidity", Double.toString(getHumidity()));
+		s.addValue("humidity", Double.toString(getHumidity()));
 		return s;
 	}
 
