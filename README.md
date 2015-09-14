@@ -12,7 +12,7 @@ that autonomously executes air-conditioning appliances in order to keep the room
 
 A metric *discomfort index* is used to measure the comfort level of the room, which is calculated
 from the temperature and humidity of the room. The value of the discomfort index charaterizes
-a *room condition* of the room.
+a *room condition*.
 
 The goal of the HVAC service is to maintain the room condition to be "comfortable", with minimal
 energy consumption. Therefore, the service moves towards a state such that:
@@ -23,10 +23,10 @@ energy consumption. Therefore, the service moves towards a state such that:
 The above two conditions can be merged as follows: 
 -  (roomComfortable AND noDeviceWorking) OR (nobodyExist AND noDeviceWorking)
 
-If the current state of the HVAC service does not satisfy the above condition, the service
-propose some actions according to a pre-determined (or dynamic) policy.
+If the current state of a HVAC service does not satisfy the above condition, the service
+propose some actions according to a pre-determined (or dynamic) *policy+.
 
-Finally, All (or some) of the proposed actions are executed in accordance with the execution policy.
+Finally, all (or some) of the proposed actions are executed in accordance with the *execution policy*.
 
 ## Discomfort Index
 For a given temperature t and humidity h, the discomfort index DI is calculated as follows:
@@ -98,12 +98,13 @@ the following policy to propose a set of actions:
 
 Note that the above policy is static and never changed throughout the execution of the service.
 
-## Policy of action proposal (dynamic version)
-TBD
-
 ## Policy of action execution (static version)
 For the action execution, we are currently executing all the actions proposed.
 This is just for simplicity.
+
+
+## Policy of action proposal (dynamic version)
+TBD
 
 ## Policy of action execution (dynamic version)
 TBD
