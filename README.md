@@ -34,6 +34,7 @@ For a given temperature t and humidity h, the discomfort index DI is calculated 
 **DI = 0.81*t + 0.01 * h * (0.99*t - 14.3) + 46.3;**
 
 The room condition is characterized by the value of DI as follows:
+
     ----------------------------------------------
     DI value           Condition
     ----------------------------------------------
