@@ -12,6 +12,13 @@ import org.kobelig.device.type.TemperatureSensor;
 import org.kobelig.device.type.Window;
 import org.kobelig.state.State;
 
+/**
+ * Static version of HVAC service. Depending on the environmental context, the service
+ * executes appropriate appliances to keep the environment to be comfortable.
+ *
+ * @author masa-n
+ *
+ */
 public class HVACService extends SmartService {
 
 	// Devices used in the HVAC service
@@ -23,11 +30,6 @@ public class HVACService extends SmartService {
 	private Circulator circulator;
 	private Window window;
 	private TreeMap<String, Action> actions = new TreeMap<String, Action>();
-
-	// Threshould of Discomfort Index used for service execution
-	public double upperDI = 70.0;
-	public double lowerDI = 65.0;
-
 
 	public TemperatureSensor getTemperatureSensor() {
 		return temperatureSensor;
@@ -244,7 +246,7 @@ public class HVACService extends SmartService {
 
 		boolean cond = (noDeviceWorking && comfortable) || (noDeviceWorking && nobodyExist);
 		System.out.println(" #HVAC reaches the acceptable state:" + cond);
-
+		System.out.println();
 		return cond;
 	}
 
@@ -340,7 +342,7 @@ public class HVACService extends SmartService {
 		for (Action a : list) {
 			System.out.println("  -? Action " + a.getId() + " is proposed.");
 		}
-
+		System.out.println();
 		return list.toArray(new Action[0]);
 	}
 
@@ -354,8 +356,7 @@ public class HVACService extends SmartService {
 			a.execute();
 			System.out.println("  -! Action " + a.getId() + " is executed.");
 		}
-
-
+		System.out.println();
 	}
 
 }
