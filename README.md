@@ -24,9 +24,10 @@ The above two conditions can be merged as follows:
 -  (roomComfortable AND noDeviceWorking) OR (nobodyExist AND noDeviceWorking)
 
 If the current state of a HVAC service does not satisfy the above condition, the service
-propose some actions according to a pre-determined (or dynamic) *policy+.
+propose some actions according to a pre-determined (or dynamic) *policy*.
 
-Finally, all (or some) of the proposed actions are executed in accordance with the *execution policy*.
+Finally, all (or some) of the proposed actions are executed in accordance with  
+a pre-determined (or dynamic) *policy*.
 
 ## Discomfort Index
 For a given temperature t and humidity h, the discomfort index DI is calculated as follows:
@@ -36,7 +37,7 @@ For a given temperature t and humidity h, the discomfort index DI is calculated 
 The room condition is characterized by the value of DI as follows:
 
     ----------------------------------------------
-    DI value           Condition
+    DI value           Room Condition
     ----------------------------------------------
         DI <=55        Cold
     55< DI <=60        A bit cold
@@ -48,15 +49,15 @@ The room condition is characterized by the value of DI as follows:
     85< DI             Very hot. Call emergency
     ----------------------------------------------
 
-More details of the discomfort index can be found at 
+More details of the discomfort index are found at 
 https://ja.wikipedia.org/wiki/%E4%B8%8D%E5%BF%AB%E6%8C%87%E6%95%B0
 
 ## Used appliances and sensors
 To perform appropriate air-conditioning, an HVAC service may use
-- an air-conditioner
-- a radiator
-- a circulator
-- a window
+- an air-conditioner to cool the room
+- a radiator to warm the room
+- a circulator to circulate the air for efficient air-conditioning
+- a window to ventilate or isolate the heat
 
 To grasp the state of the room, an HVAC service may use
 - a temperature sensor
@@ -110,7 +111,7 @@ TBD
 TBD
 
 #Java implementation of HVAC service
-See src folder. Execute TestDrive in the default package.
+See SmartHVACService folder. Execute TestDrive in the default package.
 
 
 
