@@ -78,7 +78,8 @@ public class CS27AirConditionerAdapter implements AirConditioner {
 
 	@Override
 	public void setTemperature(double temp) throws DeviceOperationException  {
-		String res = invokeWebService(baseurl+"/setTemperature?temperature="+temp);
+		int t = (int) temp;
+		String res = invokeWebService(baseurl+"/setTemperature?temperature="+t);
 		if (Boolean.parseBoolean(res)==false) {
 			throw new DeviceOperationException();
 		}
@@ -86,7 +87,7 @@ public class CS27AirConditionerAdapter implements AirConditioner {
 
 	@Override
 	public void setFanSpeed(int level) throws DeviceOperationException {
-		String res = invokeWebService(baseurl+"/setFanSpeed?speed="+level);
+		String res = invokeWebService(baseurl+"/setSpeed?speed="+level);
 		if (Boolean.parseBoolean(res)==false) {
 			throw new DeviceOperationException();
 		}

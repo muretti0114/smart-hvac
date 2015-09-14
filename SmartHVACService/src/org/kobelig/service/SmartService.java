@@ -49,19 +49,20 @@ public abstract class SmartService {
 			Context c = interpreteState(s);
 
 			// If the situation is not acceptable
-			if (!isAcceptable(c)) {
+			if (!isAcceptable(s, c)) {
 				System.out.println("(Step 3) Proposing Actions...");
 				// (3) Action Proposal
-				Action [] acts =proposeActions(c);
+				Action [] acts =proposeActions(s, c);
 
 				//(4) Action Execution
 				System.out.println("(Step 4) Executing Actions...");
-				executeActions(acts);
+				executeActions(s, c, acts);
 			} else {
 				System.out.println("The current state is acceptable. No actions performed.");
 			}
 
 			System.out.println("Waiting " + waitTime + " msec before re-activating Step 1. ");
+			System.out.println("===============================================================");
 			// Sleep for a while
 			Thread.sleep(waitTime);
 		}
@@ -98,20 +99,20 @@ public abstract class SmartService {
 	 * @param context Context to be evaluated.
 	 * @return true if acceptable.
 	 */
-	public abstract boolean isAcceptable(Context context);
+	public abstract boolean isAcceptable(State state, Context context);
 
 	/**
 	 * Perform action proposal based on the context.
 	 * @param context
 	 * @return
 	 */
-	public abstract Action[] proposeActions(Context context);
+	public abstract Action[] proposeActions(State state, Context context);
 
 	/**
 	 * Perform action execution for a given set of actions
 	 * @param context
 	 * @return
 	 */
-	public abstract void executeActions(Action[] actions);
+	public abstract void executeActions(State state, Context context, Action[] actions);
 
 }

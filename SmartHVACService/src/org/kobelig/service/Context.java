@@ -10,7 +10,14 @@ import java.util.Set;
  * @author masa-n
  */
 public class Context {
-	private HashMap<String, String> map;
+	private HashMap<String, String> map = new HashMap<String,String>();
+
+
+	public Context(String [] keys) {
+		for (String k: keys) {
+			map.put(k, "undef");
+		}
+	}
 
 	/**
 	 * Obtain a set of keys in the state.

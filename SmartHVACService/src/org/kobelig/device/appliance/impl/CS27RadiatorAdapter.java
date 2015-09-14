@@ -77,8 +77,9 @@ public class CS27RadiatorAdapter implements Radiator {
 
 	@Override
 	public void setTemperature(double temp) throws DeviceOperationException  {
+		int t = (int) temp;
 		// TODO 自動生成されたメソッド・スタブ
-		String res = invokeWebService(baseurl+"/setTemperature?temperature="+temp);
+		String res = invokeWebService(baseurl+"/setTemperature?temperature="+t);
 		if (Boolean.parseBoolean(res)==false) {
 			throw new DeviceOperationException();
 		}

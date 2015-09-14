@@ -63,6 +63,8 @@ public class TestDrive {
 		s.setHumiditySensor(humidSensor);
 		s.setHumanPresenceSensor(presenceSensor);
 
+		s.prepareActions();
+
 		// Start the service
 		s.startService();
 	}
