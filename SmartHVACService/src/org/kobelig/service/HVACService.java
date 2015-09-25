@@ -256,89 +256,101 @@ public class HVACService extends SmartService {
 	 */
 	public Action[] proposeActions(State state, Context context) {
 		// Propose a plan depending on the level of the discomfort index
-		// The proposal is made according to the following policy
-		// ------------------------------------------------------------------------------
-		// [Condition]                         [Proposed Actions]
-        //                      AC         Radiator      Circulator      Window
-		// ------------------------------------------------------------------------------
-		// Cold                 off          on, temp=24     on, speed=1    close
-        // A bit cold           off          on, temp=22     on, speed=0    close
-		// It's OK              off          on, temp=22        off         close
-		// Comfortable          off            off              off         close
-		// Not hot       on, temp=22,speed=0   off              off         close
-		// A bit hot     on, temp=21,speed=0   off           on, speed=0    close
-		// Hot           on, temp=20,speed=1   off           on, speed=1    close
-		// Emergency     on, temp=19,speed=2   off           on, speed=2    open
-		// ------------------------------------------------------------------------------
 		ArrayList<Action> list = new ArrayList<Action>();
-		String discomfort = context.getValue("discomfort");
-		switch (discomfort) {
-		case "Cold":
-			list.add(actions.get("AC.off"));
-			list.add(actions.get("Radiator.on"));
-			list.add(actions.get("Radiator.setTemp24"));
-			list.add(actions.get("Circulator.on"));
-			list.add(actions.get("Circulator.setSpeed1"));
-			list.add(actions.get("Window.close"));
-			break;
-		case "A bit cold":
-			list.add(actions.get("AC.off"));
-			list.add(actions.get("Radiator.on"));
-			list.add(actions.get("Radiator.setTemp22"));
-			list.add(actions.get("Circulator.on"));
-			list.add(actions.get("Circulator.setSpeed0"));
-			list.add(actions.get("Window.close"));
-			break;
-		case "It's OK":
-			list.add(actions.get("AC.off"));
-			list.add(actions.get("Radiator.on"));
-			list.add(actions.get("Radiator.setTemp22"));
-			list.add(actions.get("Circulator.off"));
-			list.add(actions.get("Window.close"));
-			break;
-		case "Comfortable":
+
+		String presence = context.getValue("peopleExist");
+		if (presence.equals("false")) {
+			// If nobody exist, propose to shutdown all the appliances.
 			list.add(actions.get("AC.off"));
 			list.add(actions.get("Radiator.off"));
 			list.add(actions.get("Circulator.off"));
 			list.add(actions.get("Window.close"));
-			break;
-		case "Not hot":
-			list.add(actions.get("AC.on"));
-			list.add(actions.get("AC.setTemp22"));
-			list.add(actions.get("AC.setSpeed0"));
-			list.add(actions.get("Radiator.off"));
-			list.add(actions.get("Circulator.off"));
-			list.add(actions.get("Window.close"));
-			break;
-		case "A bit hot":
-			list.add(actions.get("AC.on"));
-			list.add(actions.get("AC.setTemp21"));
-			list.add(actions.get("AC.setSpeed0"));
-			list.add(actions.get("Radiator.off"));
-			list.add(actions.get("Circulator.on"));
-			list.add(actions.get("Circulator.setSpeed0"));
-			list.add(actions.get("Window.close"));
-			break;
-		case "Hot":
-			list.add(actions.get("AC.on"));
-			list.add(actions.get("AC.setTemp20"));
-			list.add(actions.get("AC.setSpeed1"));
-			list.add(actions.get("Radiator.off"));
-			list.add(actions.get("Circulator.on"));
-			list.add(actions.get("Circulator.setSpeed1"));
-			list.add(actions.get("Window.close"));
-			break;
-		case "Very hot. Call emergency":
-			list.add(actions.get("AC.on"));
-			list.add(actions.get("AC.setTemp19"));
-			list.add(actions.get("AC.setSpeed2"));
-			list.add(actions.get("Radiator.off"));
-			list.add(actions.get("Circulator.on"));
-			list.add(actions.get("Circulator.setSpeed2"));
-			list.add(actions.get("Window.open"));
-			break;
-		default:
+		} else {
+			// Otherwise, the proposal is made according to the following policy
+			// ------------------------------------------------------------------------------
+			// [Condition]                         [Proposed Actions]
+			//                      AC         Radiator      Circulator      Window
+			// ------------------------------------------------------------------------------
+			// Cold                 off          on, temp=24     on, speed=1    close
+			// A bit cold           off          on, temp=22     on, speed=0    close
+			// It's OK              off          on, temp=22        off         close
+			// Comfortable          off            off              off         close
+			// Not hot       on, temp=22,speed=0   off              off         close
+			// A bit hot     on, temp=21,speed=0   off           on, speed=0    close
+			// Hot           on, temp=20,speed=1   off           on, speed=1    close
+			// Emergency     on, temp=19,speed=2   off           on, speed=2    open
+			// ------------------------------------------------------------------------------
+			String discomfort = context.getValue("discomfort");
+			switch (discomfort) {
+			case "Cold":
+				list.add(actions.get("AC.off"));
+				list.add(actions.get("Radiator.on"));
+				list.add(actions.get("Radiator.setTemp24"));
+				list.add(actions.get("Circulator.on"));
+				list.add(actions.get("Circulator.setSpeed1"));
+				list.add(actions.get("Window.close"));
+				break;
+			case "A bit cold":
+				list.add(actions.get("AC.off"));
+				list.add(actions.get("Radiator.on"));
+				list.add(actions.get("Radiator.setTemp22"));
+				list.add(actions.get("Circulator.on"));
+				list.add(actions.get("Circulator.setSpeed0"));
+				list.add(actions.get("Window.close"));
+				break;
+			case "It's OK":
+				list.add(actions.get("AC.off"));
+				list.add(actions.get("Radiator.on"));
+				list.add(actions.get("Radiator.setTemp22"));
+				list.add(actions.get("Circulator.off"));
+				list.add(actions.get("Window.close"));
+				break;
+			case "Comfortable":
+				list.add(actions.get("AC.off"));
+				list.add(actions.get("Radiator.off"));
+				list.add(actions.get("Circulator.off"));
+				list.add(actions.get("Window.close"));
+				break;
+			case "Not hot":
+				list.add(actions.get("AC.on"));
+				list.add(actions.get("AC.setTemp22"));
+				list.add(actions.get("AC.setSpeed0"));
+				list.add(actions.get("Radiator.off"));
+				list.add(actions.get("Circulator.off"));
+				list.add(actions.get("Window.close"));
+				break;
+			case "A bit hot":
+				list.add(actions.get("AC.on"));
+				list.add(actions.get("AC.setTemp21"));
+				list.add(actions.get("AC.setSpeed0"));
+				list.add(actions.get("Radiator.off"));
+				list.add(actions.get("Circulator.on"));
+				list.add(actions.get("Circulator.setSpeed0"));
+				list.add(actions.get("Window.close"));
+				break;
+			case "Hot":
+				list.add(actions.get("AC.on"));
+				list.add(actions.get("AC.setTemp20"));
+				list.add(actions.get("AC.setSpeed1"));
+				list.add(actions.get("Radiator.off"));
+				list.add(actions.get("Circulator.on"));
+				list.add(actions.get("Circulator.setSpeed1"));
+				list.add(actions.get("Window.close"));
+				break;
+			case "Very hot. Call emergency":
+				list.add(actions.get("AC.on"));
+				list.add(actions.get("AC.setTemp19"));
+				list.add(actions.get("AC.setSpeed2"));
+				list.add(actions.get("Radiator.off"));
+				list.add(actions.get("Circulator.on"));
+				list.add(actions.get("Circulator.setSpeed2"));
+				list.add(actions.get("Window.open"));
+				break;
+			default:
+			}
 		}
+
+
 		for (Action a : list) {
 			System.out.println("  -? Action " + a.getId() + " is proposed.");
 		}
